@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Appointments Management - Barber Shop</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <!-- Top Header -->
+    <div class="admin-header">
+      <div class="header-left">Appointments Management 💈</div>
+      <div class="header-right">
+        <a href="/admin/dashboard" class="dash-btn">🏠 Dashboard</a>
+        <a href="/admin/appointments" class="dash-btn">📅 All Appointments</a>
+        <a href="/" class="dash-btn">🌐 Client Website</a>
+        <a href="/admin/logout" class="dash-btn logout">🚪 Logout</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 style="margin-top: 0; margin-bottom: 15px">Appointments List</h2>
+
+      <!-- Filter by Date -->
+      <form method="GET" class="filter-bar">
+        <label for="date-filter">Filter by date:</label>
+        <input
+          type="date"
+          id="date-filter"
+          name="date"
+          value="{{ selected_date or '' }}"
+        />
+        <button type="submit" class="dash-btn">Filter</button>
+
+        {% if selected_date %}
+        <a href="/admin/appointments" class="dash-btn"> ✨ Show All Dates </a>
+        {% endif %}
+      </form>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in appointments %}
+          <tr>
+            <td>{{ a.name }}</td>
+            <td>{{ a.phone }}</td>
+            <td>{{ a.email if a.email else "-" }}</td>
+            <td>{{ a.service }}</td>
+            <td>{{ a.date }}</td>
+            <td>{{ a.hour }}</td>
+            <td class="status-{{ a.status }}">
+              {{ "Pending" if a.status=="pending" else "Approved" if
+              a.status=="approved" else "Canceled" }}
+            </td>
+            <td class="actions">
+              {% if a.status != "approved" %}
+              <a
+                href="/admin/approve/{{ a._id }}"
+                class="admin-btn-approve"
+                onclick="return confirm('Approve this appointment?');"
+                >Approve</a
+              >
+              {% endif %} {% if a.status != "canceled" %}
+              <a
+                href="/admin/cancel/{{ a._id }}"
+                class="admin-btn-cancel"
+                onclick="return confirm('Cancel this appointment?');"
+                >Cancel</a
+              >
+              {% endif %}
+
+              <a
+                href="/admin/delete/{{ a._id }}"
+                class="admin-btn-delete"
+                onclick="return confirm('Are you sure you want to delete this appointment?');"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" style="text-align: center">
+              No appointments found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

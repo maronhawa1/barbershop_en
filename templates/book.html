@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="header-content">
+        <h1 class="logo">Barber Shop 💈</h1>
+        <a class="btn-admin" href="/admin/login">🔐 Admin Login</a>
+      </div>
+    </header>
+
+    <div class="form-container">
+      <h2>Book an Appointment</h2>
+
+      <form class="appointment-form">
+        <label>Full Name:</label>
+        <input type="text" name="name" required />
+
+        <label>Phone:</label>
+        <input type="text" name="phone" required />
+
+        <label>Email:</label>
+        <input type="email" name="email" required />
+
+        <label>Service Type:</label>
+        <select name="service" required>
+          <option value="Men's Haircut">Men's Haircut</option>
+        </select>
+
+        <label>Date:</label>
+        <input
+          type="date"
+          name="date"
+          min="{{ today }}"
+          value="{{ today }}"
+          required
+          oninput="loadSlots(this.value)"
+        />
+
+        <label>Select Time:</label>
+        <div id="slots" class="time-grid"></div>
+
+        <button class="btn-approve" type="submit">Book Appointment</button>
+      </form>
+    </div>
+
+    <script>
+      async function loadSlots(selectedDate) {
+        if (!selectedDate) return;
+
+        const d = new Date(selectedDate);
+        if (d.getDay() === 6) {
+          alert("Closed on Saturday!");
+          document.querySelector("input[name='date']").value = "";
+          document.getElementById("slots").innerHTML = "";
+          return;
+        }
+
+        const res = await fetch(`/api/free-slots?date=${selectedDate}`);
+        const data = await res.json();
+
+        let html = "";
+        data.slots.forEach((s) => {
+          html += `
+          <label class="time-slot">
+              <input type="radio" name="hour" value="${s}" required>
+              <span>${s}</span>
+          </label>`;
+        });
+
+        if (data.slots.length === 0) {
+          html = "<div>No available slots on this date</div>";
+        }
+
+        document.getElementById("slots").innerHTML = html;
+      }
+
+      // Submit form
+      document.querySelector(".appointment-form").onsubmit = async function (
+        e
+      ) {
+        e.preventDefault();
+
+        const form = new FormData(this);
+
+        const res = await fetch("/book", {
+          method: "POST",
+          body: form,
+        });
+
+        const data = await res.json();
+        if (data.status === "success") {
+          alert(
+            "Your appointment request has been received and is pending manager approval. You will receive an email update once approved."
+          );
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 800);
+        } else {
+          alert(data.msg);
+        }
+      };
+    </script>
+  </body>
+</html>

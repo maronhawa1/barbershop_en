@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard - Barber Shop</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <!-- Top Header -->
+    <div class="admin-header">
+      <div class="header-left">Admin Dashboard - Barber Shop 💈</div>
+      <div class="header-right">
+        <a href="/admin/dashboard" class="dash-btn">🏠 Dashboard</a>
+        <a href="/admin/appointments" class="dash-btn">📅 Appointments</a>
+        <a href="/" class="dash-btn">🌐 Client Website</a>
+        <a href="/admin/logout" class="dash-btn logout">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="dashboard-container">
+      <div class="card green">
+        <h3>Appointments Today</h3>
+        <div>{{ total_today }}</div>
+      </div>
+
+      <div class="card blue">
+        <h3>Total Appointments This Week</h3>
+        <div>{{ total_week }}</div>
+      </div>
+
+      <div class="card yellow">
+        <h3>Pending Approval</h3>
+        <div>{{ pending }}</div>
+      </div>
+
+      <div class="card teal">
+        <h3>Approved</h3>
+        <div>{{ approved }}</div>
+      </div>
+
+      <div class="card red">
+        <h3>Canceled</h3>
+        <div>{{ canceled }}</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="dashboard-actions">
+      <a href="/admin/appointments" class="dash-btn">
+        📋 View All Appointments
+      </a>
+      <a href="/book" class="dash-btn"> ➕ Add New Appointment for Client </a>
+    </div>
+
+    <!-- Today's Appointments -->
+    <div class="container">
+      <h2 style="margin-top: 0; margin-bottom: 15px">Today's Appointments</h2>
+
+      {% set today_str = today if today is defined else None %}
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Phone</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appt in appointments_today %}
+          <tr>
+            <td>{{ appt.name }}</td>
+            <td>{{ appt.phone }}</td>
+            <td>{{ appt.service }}</td>
+            <td>{{ appt.date }}</td>
+            <td>{{ appt.hour }}</td>
+            <td class="status-{{ appt.status }}">
+              {{ "Pending" if appt.status=="pending" else "Approved" if
+              appt.status=="approved" else "Canceled" }}
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6" style="text-align: center">
+              No appointments for today.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

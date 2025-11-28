@@ -1,0 +1,424 @@
+/* ===== Base ===== */
+body {
+  font-family: "Rubik", Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  direction: ltr;
+  text-align: left;
+}
+
+/* Header (Client / Login) */
+header {
+  background-color: #222;
+  color: white;
+  padding: 15px;
+  font-size: 22px;
+  text-align: center;
+}
+
+/* ===== General Container ===== */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Tables ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+th {
+  background: #efefef;
+}
+
+tr:hover {
+  background: #fafafa;
+}
+
+/* Status Colors */
+.status-pending {
+  color: #f1c40f;
+  font-weight: bold;
+}
+.status-approved {
+  color: #27ae60;
+  font-weight: bold;
+}
+.status-canceled {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  margin-left: 5px;
+}
+
+/* “Book Appointment” Button */
+.btn-approve {
+  background: #0f5132;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  border: 2px solid #862f00;
+  transition: 0.3s;
+  letter-spacing: 1px;
+}
+.btn-approve:hover {
+  background: #862f00;
+  border-color: #862f00;
+  box-shadow: 0 4px 12px rgba(83, 29, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-cancel {
+  background: #dc3545;
+}
+.btn-delete {
+  background: #6c757d;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  background: url("/static/images/barbershop-bg1.png") center/cover no-repeat;
+  padding: 120px 20px;
+  text-align: center;
+  color: white;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px black;
+}
+.hero p {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px black;
+}
+
+/* Admin Button on Client Site */
+.btn-admin {
+  background: #1f1f1f;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #555;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease;
+  letter-spacing: 1px;
+}
+.btn-admin:hover {
+  background: #333;
+  border-color: #999;
+  color: #00e676;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Header content */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+}
+.logo {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* ===== Appointment Form ===== */
+.form-container {
+  width: 90%;
+  max-width: 500px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #333;
+}
+
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.appointment-form label {
+  font-weight: 600;
+  color: #444;
+}
+.appointment-form input,
+.appointment-form select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+.appointment-form input:focus,
+.appointment-form select:focus {
+  border-color: #27ae60;
+  outline: none;
+  box-shadow: 0 0 4px rgba(39, 174, 96, 0.4);
+}
+.appointment-form button {
+  margin-top: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ===== Time Slots Grid ===== */
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.time-slot {
+  padding: 14px;
+  background: #e8ffe8;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #2ecc71;
+  cursor: pointer;
+  transition: 0.25s;
+  position: relative;
+  display: block;
+}
+.time-slot input {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.time-slot span {
+  display: block;
+}
+.time-slot input:checked + span {
+  background: #27ae60;
+  color: white;
+  border-radius: 8px;
+}
+.time-slot:hover {
+  background: #2ecc71;
+  color: white;
+}
+
+/* ===== Admin Buttons ===== */
+.actions a {
+  display: inline-block;
+  margin: 4px 3px !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.admin-btn-approve {
+  background: #27ae60;
+  color: white !important;
+}
+.admin-btn-approve:hover {
+  background: #1e874b;
+}
+
+.admin-btn-cancel {
+  background: #f1c40f;
+  color: black !important;
+}
+.admin-btn-cancel:hover {
+  background: #d4ac0d;
+}
+
+.admin-btn-delete {
+  background: #e74c3c;
+  color: white !important;
+}
+.admin-btn-delete:hover {
+  background: #c0392b;
+}
+
+/* ===== Dashboard ===== */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin: 30px;
+}
+.card {
+  padding: 25px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.green {
+  background: #27ae60;
+}
+.blue {
+  background: #3498db;
+}
+.yellow {
+  background: #f1c40f;
+  color: black;
+}
+.teal {
+  background: #1abc9c;
+}
+.red {
+  background: #e74c3c;
+}
+
+.dashboard-actions {
+  margin: 40px auto;
+  text-align: center;
+}
+.dash-btn {
+  padding: 12px 25px;
+  background: #333;
+  color: white;
+  margin: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.2s;
+}
+.dash-btn:hover {
+  background: #555;
+}
+
+/* ===== Logout ===== */
+.logout {
+  background: #c0392b;
+}
+.logout:hover {
+  background: #a93226;
+}
+.logout-box {
+  max-width: 400px;
+  margin: 120px auto;
+  background: #ffffffdd;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.logout-box h2 {
+  margin-bottom: 15px;
+  font-size: 26px;
+}
+.logout-box p {
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+/* ===== Admin Login ===== */
+.login-box {
+  max-width: 380px;
+  margin: 120px auto;
+  background: #ffffffdd;
+  padding: 25px 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+.login-box h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* ===== Admin Header ===== */
+.admin-header {
+  background: #222;
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* ===== Admin Table ===== */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.admin-table th {
+  background: #333;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+}
+.admin-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.admin-table tr:hover {
+  background: #f5f5f5;
+}
+
+/* ===== Filter Bar ===== */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+.filter-bar label {
+  font-weight: 600;
+}
+.filter-bar input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
