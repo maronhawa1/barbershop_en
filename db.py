@@ -1,7 +1,10 @@
+import os
 from pymongo import MongoClient
+from dotenv import load_dotenv
 
-# הכנס כאן את ה-URI שלך ממונגו אטלס או מקומי
-MONGO_URI = "mongodb+srv://maronhawa:maron12345@barbershop-db.a7xwgix.mongodb.net/?retryWrites=true&w=majority&appName=barbershop-db"
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
 db = client["barbershop_db"]
