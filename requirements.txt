@@ -4,3 +4,4 @@ dnspython
 gunicorn
 werkzeug
 sendgrid
+python-dotenv
