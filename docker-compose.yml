@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    container_name: barbershop_app
+    ports:
+      - "5050:5000"
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
